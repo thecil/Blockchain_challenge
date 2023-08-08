@@ -3,9 +3,8 @@ import { useMemo, useState, useEffect } from "react";
 import { Web3Address } from "@/types/web3";
 import { useContractInfo } from "./useContractInfo";
 
-
 export const useWagmiUtils = () => {
-const _ct = useContractInfo();
+  const _ct = useContractInfo();
   const { address, isConnected } = useAccount();
 
   const isWalletConnected = useMemo(() => {

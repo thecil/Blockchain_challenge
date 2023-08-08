@@ -1,13 +1,15 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import BalanceOfController from "./web3/BalanceOfController";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+
 const Header: React.FC = () => {
   return (
     <header className="p-2 bg-gray-200 dark:bg-gray-800 flex justify-between items-center">
       <Link className="text-2xl font-bold" href="/">
         My Website
       </Link>
+
       <nav>
         <ul className="flex space-x-4">
           <li>
