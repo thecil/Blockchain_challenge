@@ -1,15 +1,26 @@
-import { useAccount, useBalance, serialize, deserialize } from "wagmi";
-import { useMemo, useState, useEffect } from "react";
+import {
+  useAccount,
+  useBalance,
+  serialize,
+  deserialize,
+  useNetwork,
+} from "wagmi";
+import { useMemo } from "react";
 import { Web3Address } from "@/types/web3";
 import { useContractInfo } from "./useContractInfo";
 
 export const useWagmiUtils = () => {
   const _ct = useContractInfo();
   const { address, isConnected } = useAccount();
+  const { chain } = useNetwork();
 
   const isWalletConnected = useMemo(() => {
     return Boolean(address && isConnected);
   }, [address, isConnected]);
+
+  const isConnectedToCorrectNetwork = useMemo(() => {
+    return chain?.id ? chain.id === _ct.chainId : false;
+  }, [chain]);
 
   const bigIntReplacer = (key: any, value: any) =>
     typeof value === "bigint" ? value.toString() : value;
@@ -40,6 +51,7 @@ export const useWagmiUtils = () => {
     bigIntReplacer,
     address,
     isWalletConnected,
+    isConnectedToCorrectNetwork,
     tokenBalanceOf,
     isLoadingTokenBalanceOf,
     refetchTokenBalanceOf,

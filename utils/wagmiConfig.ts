@@ -2,7 +2,7 @@ import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
   ledgerWallet,
   metaMaskWallet,
-  walletConnectWallet,
+  // walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
@@ -20,10 +20,10 @@ const connectors = connectorsForWallets([
       ledgerWallet({ projectId, chains }),
     ],
   },
-  {
-    groupName: "Others",
-    wallets: [walletConnectWallet({ projectId, chains })],
-  },
+  // {
+  //   groupName: "Others",
+  //   wallets: [walletConnectWallet({ projectId, chains })],
+  // },
 ]);
 
 export const wagmiConfig = createConfig({

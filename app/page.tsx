@@ -1,8 +1,11 @@
+'use client';
+
+import SurveyController from "@/components/web3/SurveyController";
 
 function Page() {
   return (
-    <div>
-      <h1>hello world</h1>
+    <div className="p-4 min-h-screen">
+      <SurveyController />
     </div>
   );
 }

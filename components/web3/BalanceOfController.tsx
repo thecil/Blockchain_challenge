@@ -1,21 +1,26 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useWagmiUtils } from "@/hooks/web3/useWagmiUtils";
 
 enum Stages {
-  notConnected = "not connected",
+  hidden = "not connected",
   loading = "loading",
   balanceOf = "balance of",
 }
 
 const BalanceOfController = () => {
-  const [stage, setStage] = useState(Stages.notConnected);
-  const { tokenBalanceOf, isLoadingTokenBalanceOf, isWalletConnected } =
-    useWagmiUtils();
+  const [stage, setStage] = useState(Stages.hidden);
+  const {
+    tokenBalanceOf,
+    isLoadingTokenBalanceOf,
+    isWalletConnected,
+    isConnectedToCorrectNetwork,
+    refetchTokenBalanceOf,
+  } = useWagmiUtils();
 
   useEffect(() => {
-    if (isWalletConnected) {
+    if (isWalletConnected && isConnectedToCorrectNetwork) {
       if (!isLoadingTokenBalanceOf && tokenBalanceOf) {
         if (stage !== Stages.balanceOf) {
           setStage(Stages.balanceOf);
@@ -28,12 +33,19 @@ const BalanceOfController = () => {
         return;
       }
     } else {
-      if (stage !== Stages.notConnected) {
-        setStage(Stages.notConnected);
+      if (stage !== Stages.hidden) {
+        setStage(Stages.hidden);
       }
       return;
     }
-  }, [stage, isWalletConnected, isLoadingTokenBalanceOf, tokenBalanceOf]);
+  }, [
+    stage,
+    isWalletConnected,
+    isConnectedToCorrectNetwork,
+    isLoadingTokenBalanceOf,
+    tokenBalanceOf,
+    refetchTokenBalanceOf,
+  ]);
 
   return (
     <>
@@ -42,7 +54,11 @@ const BalanceOfController = () => {
           <p>loading balance...</p>
         </>
       )}
-      {stage === Stages.notConnected && <><p>hidden</p></>}
+      {stage === Stages.hidden && (
+        <>
+          <p>hidden</p>
+        </>
+      )}
       {stage === Stages.balanceOf && (
         <>
           <p>
