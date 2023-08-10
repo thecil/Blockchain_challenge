@@ -3,7 +3,7 @@ import {
   useBalance,
   serialize,
   deserialize,
-  useNetwork,
+  useNetwork
 } from "wagmi";
 import { useMemo } from "react";
 import { Web3Address } from "@/types/web3";
@@ -20,6 +20,7 @@ export const useWagmiUtils = () => {
 
   const isConnectedToCorrectNetwork = useMemo(() => {
     return chain?.id ? chain.id === _ct.chainId : false;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chain]);
 
   const bigIntReplacer = (key: any, value: any) =>
@@ -33,8 +34,7 @@ export const useWagmiUtils = () => {
   const {
     data: _tokenBalanceOf,
     isLoading: isLoadingTokenBalanceOf,
-    isSuccess: isSuccessTokenBalanceOf,
-    refetch: refetchTokenBalanceOf,
+    refetch: refetchTokenBalanceOf
   } = useBalance({
     address: address,
     token: _ct.address as Web3Address,
@@ -54,6 +54,6 @@ export const useWagmiUtils = () => {
     isConnectedToCorrectNetwork,
     tokenBalanceOf,
     isLoadingTokenBalanceOf,
-    refetchTokenBalanceOf,
+    refetchTokenBalanceOf
   };
 };

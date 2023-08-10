@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import { useTimer } from "react-timer-hook";
@@ -11,7 +11,7 @@ const d2 = Intl.NumberFormat("en-us", { minimumIntegerDigits: 2 });
 
 export const Countdown: React.FC<CountdownProps> = ({
   expiryTimestamp,
-  onExpire,
+  onExpire
 }) => {
   const { days, hours, minutes, seconds } = useTimer({
     expiryTimestamp,

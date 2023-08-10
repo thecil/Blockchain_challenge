@@ -16,7 +16,7 @@ const BalanceOfController = () => {
     isLoadingTokenBalanceOf,
     isWalletConnected,
     isConnectedToCorrectNetwork,
-    refetchTokenBalanceOf,
+    refetchTokenBalanceOf
   } = useWagmiUtils();
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const BalanceOfController = () => {
     isConnectedToCorrectNetwork,
     isLoadingTokenBalanceOf,
     tokenBalanceOf,
-    refetchTokenBalanceOf,
+    refetchTokenBalanceOf
   ]);
 
   return (

@@ -6,6 +6,9 @@ const nextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding");
     return config;
   },
+  images: {
+    domains: ["48tools.com", "interactive-examples.mdn.mozilla.net", "filedn.com"]
+  }
 };
 
 module.exports = nextConfig;

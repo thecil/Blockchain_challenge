@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSurveyCt } from "@/hooks/web3/contracts/useSurveyCt";
 import { useWagmiUtils } from "@/hooks/web3/useWagmiUtils";
-import SubmitSurvey from "./SubmitSurvey";
+import SurveyForm from "@/components/SurveyForm";
 import { Countdown } from "../Countdown";
 
 enum Stages {
@@ -21,12 +21,12 @@ const SurveyController = () => {
     isFetchingMapping,
     isLoadingMappingLastSubmittal,
     isLoadingCd,
-    isOnCooldown,
+    isOnCooldown
   } = useSurveyCt();
 
   useEffect(() => {
     console.log("survey controller", {
-      isOnCooldown,
+      isOnCooldown
     });
 
     if (isWalletConnected && isConnectedToCorrectNetwork) {
@@ -56,6 +56,8 @@ const SurveyController = () => {
     }
   }, [
     stage,
+    isWalletConnected,
+    isConnectedToCorrectNetwork,
     isOnCooldown,
     isLoadingCd,
     isLoadingMappingLastSubmittal,
@@ -86,7 +88,7 @@ const SurveyController = () => {
       )}
       {stage === Stages.survey && (
         <>
-          <SubmitSurvey />
+          <SurveyForm />
         </>
       )}
     </>

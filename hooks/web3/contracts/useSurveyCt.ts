@@ -12,17 +12,17 @@ export const useSurveyCt = () => {
     address,
     isWalletConnected,
     isConnectedToCorrectNetwork,
-    bigIntReplacer,
+    bigIntReplacer
   } = useWagmiUtils();
 
   const {
     data: _cd,
     refetch: refetchCd,
-    isLoading: isLoadingCd,
+    isLoading: isLoadingCd
   } = useContractRead({
     functionName: "cooldownSeconds",
     enabled: Boolean(isWalletConnected && isConnectedToCorrectNetwork),
-    ...ct,
+    ...ct
   });
 
   const cooldown = useMemo(() => {
@@ -31,18 +31,19 @@ export const useSurveyCt = () => {
       const _cdNumber = hexToNumber(JSON.parse(_replacer) as Web3Address);
       return _cdNumber;
     } else return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_cd]);
 
   const {
     data: _mappingLastSubmittal,
     refetch: refetchMappingLastSubmittal,
     isFetching: isFetchingMapping,
-    isLoading: isLoadingMappingLastSubmittal,
+    isLoading: isLoadingMappingLastSubmittal
   } = useContractRead({
     functionName: "lastSubmittal",
     args: [address],
     enabled: Boolean(isWalletConnected && isConnectedToCorrectNetwork),
-    ...ct,
+    ...ct
   });
 
   const mappingLastSubmittal = useMemo(() => {
@@ -51,6 +52,7 @@ export const useSurveyCt = () => {
       const _mLsNumber = hexToNumber(JSON.parse(_replacer) as Web3Address);
       return _mLsNumber;
     } else return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_mappingLastSubmittal]);
 
   const isOnCooldown = useMemo(() => {
@@ -61,14 +63,15 @@ export const useSurveyCt = () => {
       return {
         df: new Date(_endDate * 1000),
         endDate: _endDate,
-        isOnCd: onCd,
+        isOnCd: onCd
       };
     }
     return {
       df: null,
       endDate: null,
-      isOnCd: false,
+      isOnCd: false
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cooldown, mappingLastSubmittal, isFetchingMapping]);
 
   return {
@@ -81,6 +84,6 @@ export const useSurveyCt = () => {
     refetchMappingLastSubmittal,
     isFetchingMapping,
     isLoadingMappingLastSubmittal,
-    isOnCooldown,
+    isOnCooldown
   };
 };
