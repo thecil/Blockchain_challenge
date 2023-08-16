@@ -50,13 +50,14 @@ const SubmitSurvey = () => {
     if (submitTxSuccess && submitTxData?.hash) {
       console.log("tx success, triggers refetchs", {
         submitTxSuccess,
-        hash: submitTxData?.hash,
+        hash: submitTxData?.hash
       });
       refetchTokenBalanceOf();
       refetchMappingLastSubmittal();
       refetchCd();
     }
     return;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitTxSuccess]);
 
   return (

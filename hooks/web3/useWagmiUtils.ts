@@ -38,7 +38,7 @@ export const useWagmiUtils = () => {
   } = useBalance({
     address: address,
     token: _ct.address as Web3Address,
-    enabled: Boolean(_ct.address && isWalletConnected),
+    enabled: Boolean(_ct.address && isWalletConnected)
   });
 
   const tokenBalanceOf = useMemo(() => {

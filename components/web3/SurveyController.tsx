@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useSurveyCt } from "@/hooks/web3/contracts/useSurveyCt";
 import { useWagmiUtils } from "@/hooks/web3/useWagmiUtils";
+import { Countdown } from "@/components/Countdown";
 import SurveyForm from "@/components/SurveyForm";
-import { Countdown } from "../Countdown";
 
 enum Stages {
   notConnected = "not connected",
@@ -21,12 +21,12 @@ const SurveyController = () => {
     isFetchingMapping,
     isLoadingMappingLastSubmittal,
     isLoadingCd,
-    isOnCooldown
+    isOnCooldown,
   } = useSurveyCt();
 
   useEffect(() => {
     console.log("survey controller", {
-      isOnCooldown
+      isOnCooldown,
     });
 
     if (isWalletConnected && isConnectedToCorrectNetwork) {
@@ -80,9 +80,10 @@ const SurveyController = () => {
           <Countdown
             expiryTimestamp={isOnCooldown.df as Date}
             onExpire={() => {
-              console.log("should reload");
               refetchMappingLastSubmittal();
             }}
+            timeFormat={{ hours: true, minutes: true, seconds: true }}
+            title={"You are on Cooldown, please wait to request a new form"}
           />
         </>
       )}

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -9,11 +9,11 @@ import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Blockchain Challenge",
-  description: "Blockchain Challenge for Rather Labs",
+  description: "Blockchain Challenge for Rather Labs"
 };
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
@@ -24,8 +24,8 @@ export default function RootLayout({
           <Providers>
             <Header />
             <main className="flex-grow px-4">{children}</main>
+            <Footer />
           </Providers>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

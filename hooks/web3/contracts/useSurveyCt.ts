@@ -4,7 +4,7 @@ import { useContractInfo } from "@/hooks/web3/useContractInfo";
 import { useWagmiUtils } from "@/hooks/web3/useWagmiUtils";
 import { hexToNumber } from "viem";
 import { Web3Address } from "@/types/web3";
-import { unixNow } from "@/utils/cooldownTime";
+import { unixNow } from "@/utils/unixTime";
 
 export const useSurveyCt = () => {
   const ct = useContractInfo();
