@@ -61,9 +61,11 @@ const BalanceOfController = () => {
       )}
       {stage === Stages.balanceOf && (
         <>
-          <p>
-            {tokenBalanceOf?.symbol} : {tokenBalanceOf?.formatted}
-          </p>
+          <div className="p-2 w-fit border border-solid border-gray-400 rounded-full bg-gray-200 dark:bg-gray-800 dark:border-gray-200">
+            <p>
+              {tokenBalanceOf?.symbol} : {tokenBalanceOf?.formatted}
+            </p>
+          </div>
         </>
       )}
     </>

@@ -21,12 +21,12 @@ const SurveyController = () => {
     isFetchingMapping,
     isLoadingMappingLastSubmittal,
     isLoadingCd,
-    isOnCooldown,
+    isOnCooldown
   } = useSurveyCt();
 
   useEffect(() => {
     console.log("survey controller", {
-      isOnCooldown,
+      isOnCooldown
     });
 
     if (isWalletConnected && isConnectedToCorrectNetwork) {
@@ -61,10 +61,10 @@ const SurveyController = () => {
     isOnCooldown,
     isLoadingCd,
     isLoadingMappingLastSubmittal,
-    isFetchingMapping,
+    isFetchingMapping
   ]);
   return (
-    <>
+    <div className="justify-self-center">
       {stage === Stages.loading && (
         <>
           <p>loading...</p>
@@ -92,7 +92,7 @@ const SurveyController = () => {
           <SurveyForm />
         </>
       )}
-    </>
+    </div>
   );
 };
 

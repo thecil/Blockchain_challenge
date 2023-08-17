@@ -4,18 +4,21 @@ import React, { useState, useEffect } from "react";
 import {
   usePrepareContractWrite,
   useContractWrite,
-  useWaitForTransaction,
+  useWaitForTransaction
 } from "wagmi";
 import { useWagmiUtils } from "@/hooks/web3/useWagmiUtils";
 import { useContractInfo } from "@/hooks/web3/useContractInfo";
 import { useSurveyCt } from "@/hooks/web3/contracts/useSurveyCt";
 
-const SubmitSurvey = () => {
-  const [surveyId, setSurveyId] = useState(2);
-  const [answerIds, setAnswerIds] = useState([1, 2, 3]);
+interface SubmitSurveyProps {
+  answersIds: number[];
+}
+
+const SubmitSurvey = ({ answersIds }: SubmitSurveyProps) => {
+  const [surveyId, setSurveyId] = useState(3);
 
   const surveyIdBigInt = BigInt(surveyId);
-  const answerIdsBigInt = answerIds.map((id) => BigInt(id));
+  const answersIdsBigInt = answersIds.map((id) => BigInt(id));
 
   const { address, isWalletConnected, refetchTokenBalanceOf } = useWagmiUtils();
   const { refetchMappingLastSubmittal, refetchCd } = useSurveyCt();
@@ -24,26 +27,29 @@ const SubmitSurvey = () => {
   const { config, error } = usePrepareContractWrite({
     ...ct,
     functionName: "submit",
-    args: [surveyIdBigInt, answerIdsBigInt],
+    args: [surveyIdBigInt, answersIdsBigInt],
     enabled: Boolean(isWalletConnected),
     account: address,
+    onError: (error) => {
+      console.log("usePrepareContractWrite:submit:onError:", { error });
+    }
   });
 
   const {
     data: submitTxData,
     error: submitTxError,
-    write: submit,
+    write: submit
   } = useContractWrite(config);
 
   const {
     isLoading: submitTxLoading,
     isSuccess: submitTxSuccess,
-    error: submitConfirmTxError,
+    error: submitConfirmTxError
   } = useWaitForTransaction({
     chainId: ct.chainId,
     confirmations: 1,
     cacheTime: Infinity,
-    hash: submitTxData?.hash,
+    hash: submitTxData?.hash
   });
 
   useEffect(() => {
@@ -64,7 +70,7 @@ const SubmitSurvey = () => {
     <>
       <div className="d-grip gap-2">
         <button
-          className="px-2 border-2 rounded-full"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           disabled={!submit || submitTxLoading}
           onClick={() => submit?.()}
         >

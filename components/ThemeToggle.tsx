@@ -7,17 +7,17 @@ export default function ThemeToggle() {
   return (
     <>
       <button
-        className="p-2 border-2 border-solid  border-gray-800 rounded-full bg-gray-200 dark:bg-gray-800 dark:border-gray-200"
+        className="p-2 w-fit h-fit border border-solid  border-gray-500 rounded-full bg-gray-200 dark:bg-gray-800 dark:border-gray-200"
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       >
         {theme === "dark" ? (
           <IoSunnyOutline
-            className="text-gray-800 dark:text-gray-200"
+            className="text-gray-400 dark:text-gray-200"
             size={24}
           />
         ) : (
           <IoMoonOutline
-            className="text-gray-800 dark:text-gray-200"
+            className="text-gray-500 dark:text-gray-200"
             size={24}
           />
         )}

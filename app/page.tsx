@@ -1,8 +1,10 @@
 "use client";
 import SurveyController from "@/components/web3/SurveyController";
+import styles from "@/styles/Home.module.css";
+
 function Page() {
   return (
-    <div className="p-4 min-h-min">
+    <div className={styles.mainContainer}>
       <SurveyController />
     </div>
   );

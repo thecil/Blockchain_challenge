@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import styles from "@/styles/Countdown.module.css";
 
@@ -23,20 +23,25 @@ export const Countdown: React.FC<CountdownProps> = ({
   onExpire,
   timeFormat
 }) => {
-  const { days, hours, minutes, seconds } = useTimer({
+  const { days, hours, minutes, seconds, restart } = useTimer({
     expiryTimestamp,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onExpire: onExpire || function () {}
   });
+
+  useEffect(() => {
+    restart(expiryTimestamp);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onExpire]);
 
   return (
     <>
       <div className={styles.timerContainer}>
         {title && <h2 className={styles.timerTitle}>{title}</h2>}
         <div className={styles.timer}>
-          {timeFormat.days && `Days: ${d2.format(days)}:`}
-          {timeFormat.hours && `hours: ${d2.format(hours)}:`}
-          {timeFormat.minutes && `minutes: ${d2.format(minutes)}:`}
+          {timeFormat.days && `${d2.format(days)}:`}
+          {timeFormat.hours && `${d2.format(hours)}:`}
+          {timeFormat.minutes && `${d2.format(minutes)}:`}
           {`${d2.format(seconds)}`}
         </div>
       </div>

@@ -4,6 +4,7 @@ import survey from "@/data/survey-sample.json";
 import Image from "next/image";
 import { unixNow } from "@/utils/unixTime";
 import { Countdown } from "./Countdown";
+import SubmitSurvey from "./web3/SubmitSurvey";
 
 interface SurveyData {
   title: string;
@@ -45,19 +46,19 @@ const SurveyForm: React.FC = () => {
         (currQuestionIndex) => (currQuestionIndex as number) + 1
       );
     } else {
+      if (!answered) setAnswers((prevAnswers) => [...prevAnswers, 0]);
       setQuizStatus(QuizStatus.finished);
     }
     return;
   };
 
   const handleAnswerQuestion = (answer: number) => {
-    setAnswers((prevAnswers) => [...prevAnswers.slice(0, -1), answer]);
+    setAnswers((prevAnswers) => [...prevAnswers, answer]);
     handleNextQuestion(true);
     return;
   };
 
-  const handleSubmitSurvey = () => {
-    console.log(answers);
+  const handleRestartSurvey = () => {
     setQuizStatus(QuizStatus.idle);
     setAnswers([]);
     setCurrQuestionIndex(0);
@@ -84,24 +85,29 @@ const SurveyForm: React.FC = () => {
   }, [stage, quizStatus]);
 
   return (
-    <div className="p-4">
+    <>
       {stage === QuizStatus.finished && (
         <>
-          <h2 className="text-xl font-bold mb-4">Overview</h2>
-          <ul className="mb-4">
-            {questions.map((question, index) => (
-              <li key={index} className="mb-2">
-                <span className="font-bold">{question.text}:</span>{" "}
-                {answers[index]}
-              </li>
-            ))}
-          </ul>
-          <button
-            onClick={handleSubmitSurvey}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Submit
-          </button>
+          <div className="flex flex-col items-center">
+            <h2 className="text-2xl font-bold mb-4">Overview</h2>
+            <ul className="mb-4">
+              {questions.map((question, index) => (
+                <li key={index} className="mb-2">
+                  <span className="font-bold">{question.text}:</span>{" "}
+                  {answers[index]}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-row gap-2">
+            <SubmitSurvey answersIds={answers} />
+            <button
+              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+              onClick={handleRestartSurvey}
+            >
+              reset
+            </button>
+          </div>
         </>
       )}
       {stage === QuizStatus.started && (
@@ -156,7 +162,7 @@ const SurveyForm: React.FC = () => {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default SurveyForm;
