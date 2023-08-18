@@ -4,11 +4,15 @@ import React, { useEffect } from "react";
 import { useWagmiUtils } from "@/hooks/web3/useWagmiUtils";
 import { useSurveyCt } from "@/hooks/web3/contracts/useSurveyCt";
 import { toast } from "react-toastify";
-import { SubmitSurveyProps } from "@/types/survey";
+
+interface SubmitSurveyProps {
+  answersIds: number[];
+}
 
 const SubmitSurvey = ({ answersIds }: SubmitSurveyProps) => {
   const { refetchTokenBalanceOf } = useWagmiUtils();
   const {
+    setAnswersIds,
     refetchMappingLastSubmittal,
     refetchCd,
     submit,
@@ -16,9 +20,13 @@ const SubmitSurvey = ({ answersIds }: SubmitSurveyProps) => {
     submitTxLoading,
     submitTxSuccess,
     error: submitTxError
-  } = useSurveyCt({
-    answersIds
-  });
+  } = useSurveyCt();
+
+  useEffect(() => {
+    setAnswersIds(answersIds);
+    return;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answersIds]);
 
   useEffect(() => {
     if (submitTxLoading) {

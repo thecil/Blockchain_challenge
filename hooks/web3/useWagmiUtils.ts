@@ -64,6 +64,7 @@ export const useWagmiUtils = () => {
     serialize,
     deserialized,
     bigIntReplacer,
+    chain,
     publicClient,
     accountNonce,
     address,

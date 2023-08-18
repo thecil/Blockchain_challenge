@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   useContractRead,
   usePrepareContractWrite,
@@ -13,9 +13,9 @@ import { hexToNumber } from "viem";
 import { Web3Address } from "@/types/web3";
 import { unixNow } from "@/utils/unixTime";
 import { TransError, useTransError } from "@/hooks/web3/useTransError";
-import { SubmitSurveyProps } from "@/types/survey";
 
-export const useSurveyCt = ({ answersIds }: SubmitSurveyProps) => {
+export const useSurveyCt = () => {
+  const [answersIds, setAnswersIds] = useState<number[] | null>(null);
   const ct = useContractInfo();
   const {
     address,
@@ -89,6 +89,8 @@ export const useSurveyCt = ({ answersIds }: SubmitSurveyProps) => {
   }, [accountNonce]);
 
   const answersIdsBigInt = useMemo(() => {
+    console.log("answersIdsBigInt", answersIds);
+
     return answersIds ? answersIds.map((id) => BigInt(id)) : null;
   }, [answersIds]);
 
@@ -112,7 +114,7 @@ export const useSurveyCt = ({ answersIds }: SubmitSurveyProps) => {
     error: submitConfirmTxError
   } = useWaitForTransaction({
     chainId: ct.chainId,
-    confirmations: 1,
+    confirmations: 2,
     cacheTime: Infinity,
     hash: submitTxData?.hash
   });
@@ -122,7 +124,7 @@ export const useSurveyCt = ({ answersIds }: SubmitSurveyProps) => {
   });
 
   return {
-    accountNonce,
+    setAnswersIds,
     cooldown,
     refetchCd,
     isLoadingCd,

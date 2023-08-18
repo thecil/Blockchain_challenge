@@ -7,12 +7,13 @@ import { unixNow } from "@/utils/unixTime";
 import { Countdown } from "./Countdown";
 import SubmitSurvey from "./web3/SubmitSurvey";
 import Image from "next/image";
-import InstructionsModal from "./InstructionsModal";
+import InstructionsModal from "./Modal/InstructionsModal";
 
 enum QuizStatus {
   idle = "idle",
   started = "started",
   finished = "finished",
+  checkpoint = "checkpoint",
 }
 
 const SurveyForm: React.FC = () => {
@@ -22,7 +23,6 @@ const SurveyForm: React.FC = () => {
   const [currQuestionIndex, setCurrQuestionIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [showInstructions, setShowInstructions] = useState(false);
-  const [animateQuestion, setAnimateQuestion] = useState(false);
 
   const _expireAt = (_lifeTimeSeconds: number): Date =>
     new Date((unixNow() + _lifeTimeSeconds) * 1000);
@@ -32,15 +32,13 @@ const SurveyForm: React.FC = () => {
     return;
   };
 
-  const handleNextQuestion = (answered: boolean) => {
-    setAnimateQuestion(true);
+  const handleNextQuestion = () => {
     if (currQuestionIndex < questions.length - 1) {
-      if (!answered) setAnswers((prevAnswers) => [...prevAnswers, 0]);
+      setQuizStatus(QuizStatus.checkpoint);
       setCurrQuestionIndex(
         (currQuestionIndex) => (currQuestionIndex as number) + 1
       );
     } else {
-      if (!answered) setAnswers((prevAnswers) => [...prevAnswers, 0]);
       setQuizStatus(QuizStatus.finished);
     }
     return;
@@ -48,7 +46,7 @@ const SurveyForm: React.FC = () => {
 
   const handleAnswerQuestion = (answer: number) => {
     setAnswers((prevAnswers) => [...prevAnswers, answer]);
-    handleNextQuestion(true);
+    handleNextQuestion();
     return;
   };
 
@@ -77,12 +75,30 @@ const SurveyForm: React.FC = () => {
         setStage(QuizStatus.idle);
       }
       return;
+    } else if (quizStatus === QuizStatus.checkpoint) {
+      if (stage !== QuizStatus.checkpoint) {
+        setStage(QuizStatus.checkpoint);
+      }
+      return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stage, quizStatus]);
 
   return (
     <>
+      {stage === QuizStatus.checkpoint && (
+        <>
+          <div className="flex flex-col items-center">
+            <Countdown
+              expiryTimestamp={_expireAt(3)}
+              title={"Get ready for next question"}
+              onExpire={() => setQuizStatus(QuizStatus.started)}
+              timeFormat={{ seconds: true }}
+              animate={true}
+            />
+          </div>
+        </>
+      )}
       {stage === QuizStatus.finished && (
         <>
           <div className="flex flex-col items-center">
@@ -97,7 +113,7 @@ const SurveyForm: React.FC = () => {
             </ul>
           </div>
           <div className="flex flex-row gap-2">
-            <SubmitSurvey answersIds={answers} />
+            <SubmitSurvey answersIds={answers}/>
             <button
               className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg"
               onClick={handleRestartSurvey}
@@ -109,12 +125,7 @@ const SurveyForm: React.FC = () => {
       )}
       {stage === QuizStatus.started && (
         <>
-          <h2
-            className={`text-xl font-bold mb-4 text-center ${
-              animateQuestion ? "animate-bounce" : ""
-            }`}
-            onAnimationEnd={() => setAnimateQuestion(false)}
-          >
+          <h2 className={"text-xl font-bold mb-4 text-center"}>
             {questions[currQuestionIndex].text}
           </h2>
           <Image
@@ -129,7 +140,7 @@ const SurveyForm: React.FC = () => {
               questions[currQuestionIndex].lifetimeSeconds
             )}
             title={"Time Remaining:"}
-            onExpire={() => handleNextQuestion(false)}
+            onExpire={() => handleAnswerQuestion(0)}
             timeFormat={{ seconds: true }}
             animate={true}
           />

@@ -3,7 +3,7 @@
 import React, { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
-export interface ModalProps {
+interface ModalProps {
   children: ReactNode;
   open: boolean;
   onClose: () => void;
