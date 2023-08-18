@@ -20,6 +20,16 @@ Website: [blockchain-challenge.vercel.app](https://blockchain-challenge.vercel.a
 
 A survey company wants to make a new quiz form that rewards users with tokens for participating in the survey. They create surveys, loading them into JSON format and they want you to develop a responsive web application using React and TypeScript for people to answer and submit the results, getting tokens in the process.
 
+### [+] Requirements
+
+ - Check `.env.example` for enviromental variables.
+ - **React** - A JavaScript library for building user interfaces.
+ - **TypeScript** - A typed superset of JavaScript that compiles to plain JavaScript.
+ - **Next.js** - A React framework for production.
+ - **Tailwind CSS** - A utility-first CSS framework.
+ - **Wagmi** - A collection of React Hooks containing everything you need to start working with Ethereum.
+ - **RainbowKit** - A React library that makes it easy to add wallet connection to your dapp.
+
 ### [+] Installation
 
 To get started, clone this repository and install the dependencies by running npm install.
@@ -48,15 +58,6 @@ In the project directory, you can run:
 - Runs ESLint to check for linting errors.
 
     `npm run lint`
-
-### [+] Requirements
-
- - Check `.env.example` for enviromental variables.
- - **React** - A JavaScript library for building user interfaces.
- - **TypeScript** - A typed superset of JavaScript that compiles to plain JavaScript.
- - **Next.js** - A React framework for production.
- - **Tailwind CSS** - A utility-first CSS framework.
- - **Wagmi** - A collection of React Hooks containing everything you need to start working with Ethereum.
 
 ### [+] Credits 
 <a href="https://github.com/thecil/Blockchain_challenge">thecil</a>
