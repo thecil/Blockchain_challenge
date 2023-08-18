@@ -1,10 +1,9 @@
 "use client";
 import SurveyController from "@/components/web3/SurveyController";
-import styles from "@/styles/Home.module.css";
 
 function Page() {
   return (
-    <div className={styles.mainContainer}>
+    <div className="p-4 min-h-screen grid content-center">
       <SurveyController />
     </div>
   );

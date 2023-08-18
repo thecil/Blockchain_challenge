@@ -131,8 +131,9 @@ const SurveyForm: React.FC = () => {
             title={"Time Remaining:"}
             onExpire={() => handleNextQuestion(false)}
             timeFormat={{ seconds: true }}
+            animate={true}
           />
-          <ul className="mb-4">
+          <ul className="mt-4">
             {questions[currQuestionIndex].options.map((option, index) => (
               <li key={index} className="mb-2 text-center">
                 <button

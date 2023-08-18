@@ -83,7 +83,7 @@ const SurveyController = () => {
               refetchMappingLastSubmittal();
             }}
             timeFormat={{ hours: true, minutes: true, seconds: true }}
-            title={"You are on Cooldown, please wait to request a new form"}
+            title={"Please wait to request a new survey"}
           />
         </>
       )}
