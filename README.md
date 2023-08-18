@@ -23,12 +23,12 @@ A survey company wants to make a new quiz form that rewards users with tokens fo
 ### [+] Requirements
 
  - Check `.env.example` for enviromental variables.
- - **React** - A JavaScript library for building user interfaces.
- - **TypeScript** - A typed superset of JavaScript that compiles to plain JavaScript.
- - **Next.js** - A React framework for production.
- - **Tailwind CSS** - A utility-first CSS framework.
- - **Wagmi** - A collection of React Hooks containing everything you need to start working with Ethereum.
- - **RainbowKit** - A React library that makes it easy to add wallet connection to your dapp.
+ - [**React**](https://react.dev/) - The library for web and native user interfaces.
+ - [**TypeScript**](https://www.typescriptlang.org/) - TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
+ - [**Next.js**](https://nextjs.org/) - A React framework for production.
+ - [**Tailwind CSS**](https://tailwindcss.com/) - A utility-first CSS framework.
+ - [**Wagmi**](https://wagmi.sh/) - A collection of React Hooks containing everything you need to start working with Ethereum.
+ - [**RainbowKit**](https://www.rainbowkit.com/) - A React library that makes it easy to add wallet connection to your dapp.
 
 ### [+] Installation
 
