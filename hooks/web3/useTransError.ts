@@ -1,3 +1,5 @@
+"use client";
+
 import { WagmiTransError } from "../../types/web3";
 import { useWagmiUtils } from "../../hooks/web3/useWagmiUtils";
 

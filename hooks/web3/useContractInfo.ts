@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo } from "react";
 import { useNetwork } from "wagmi";
 import { abi_survey } from "@/data/web3/contracts/abi_survey";

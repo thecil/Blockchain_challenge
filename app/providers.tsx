@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React from "react";
 import { WagmiConfig } from "wagmi";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { supportedChains, wagmiConfig } from "@/utils/wagmiConfig";

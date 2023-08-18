@@ -63,21 +63,6 @@ const Header: React.FC = () => {
               ref={menuRef}
               className="absolute top-12 right-1 z-10 p-4 w-fit rounded-md divide-y divide-gray-300 dark:divide-gray-600 bg-gray-200 dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-white dark:ring-opacity-10 focus:outline-none"
             >
-              <nav>
-                <ul className="flex flex-col">
-                  <li>
-                    <Link className="hover:text-gray-300" href="/about">
-                      About
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="hover:text-gray-300" href="/contact">
-                      Contact
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
-
               <div className="flex flex-col gap-2 p-2">
                 <BalanceOfController />
                 <ConnectButton />

@@ -1,4 +1,5 @@
 "use client";
+
 import SurveyController from "@/components/web3/SurveyController";
 
 function Page() {

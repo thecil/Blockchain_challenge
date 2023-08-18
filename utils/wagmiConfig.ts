@@ -1,10 +1,9 @@
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
   ledgerWallet,
-  metaMaskWallet,
-  // walletConnectWallet,
+  metaMaskWallet
 } from "@rainbow-me/rainbowkit/wallets";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
+import { configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { getSupportedChains } from "./supportedChains";
 
@@ -17,18 +16,14 @@ const connectors = connectorsForWallets([
     groupName: "Recommended",
     wallets: [
       metaMaskWallet({ projectId, chains }),
-      ledgerWallet({ projectId, chains }),
-    ],
-  },
-  // {
-  //   groupName: "Others",
-  //   wallets: [walletConnectWallet({ projectId, chains })],
-  // },
+      ledgerWallet({ projectId, chains })
+    ]
+  }
 ]);
 
 export const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
   publicClient,
-  webSocketPublicClient,
+  webSocketPublicClient
 });
