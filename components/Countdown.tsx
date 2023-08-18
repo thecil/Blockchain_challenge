@@ -31,7 +31,7 @@ export const Countdown: React.FC<CountdownProps> = ({
   });
 
   const secsEnding = useMemo(() => {
-    return seconds <= 5 ? "text-red-600 animate-ping mb-2" : "";
+    return seconds <= 5 ? "animate-ping mb-2" : "";
   }, [seconds]);
 
   useEffect(() => {
