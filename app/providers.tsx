@@ -6,7 +6,7 @@ import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { supportedChains, wagmiConfig } from "@/utils/wagmiConfig";
 
 const demoAppInfo = {
-  appName: "Blockchain Challenge",
+  appName: "Blockchain Challenge"
 };
 
 export function Providers({ children }: { children: React.ReactNode }) {

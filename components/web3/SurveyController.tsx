@@ -22,7 +22,7 @@ const SurveyController = () => {
     isLoadingMappingLastSubmittal,
     isLoadingCd,
     isOnCooldown
-  } = useSurveyCt();
+  } = useSurveyCt({ answersIds: null });
 
   useEffect(() => {
     console.log("survey controller", {

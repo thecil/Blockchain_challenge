@@ -1,76 +1,66 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import {
-  usePrepareContractWrite,
-  useContractWrite,
-  useWaitForTransaction
-} from "wagmi";
+import React, { useEffect } from "react";
 import { useWagmiUtils } from "@/hooks/web3/useWagmiUtils";
-import { useContractInfo } from "@/hooks/web3/useContractInfo";
 import { useSurveyCt } from "@/hooks/web3/contracts/useSurveyCt";
-
-interface SubmitSurveyProps {
-  answersIds: number[];
-}
+import { toast } from "react-toastify";
+import { SubmitSurveyProps } from "@/types/survey";
 
 const SubmitSurvey = ({ answersIds }: SubmitSurveyProps) => {
-  const [surveyId, setSurveyId] = useState(3);
-
-  const surveyIdBigInt = BigInt(surveyId);
-  const answersIdsBigInt = answersIds.map((id) => BigInt(id));
-
-  const { address, isWalletConnected, refetchTokenBalanceOf } = useWagmiUtils();
-  const { refetchMappingLastSubmittal, refetchCd } = useSurveyCt();
-  const ct = useContractInfo();
-
-  const { config, error } = usePrepareContractWrite({
-    ...ct,
-    functionName: "submit",
-    args: [surveyIdBigInt, answersIdsBigInt],
-    enabled: Boolean(isWalletConnected),
-    account: address,
-    onError: (error) => {
-      console.log("usePrepareContractWrite:submit:onError:", { error });
-    }
-  });
-
+  const { refetchTokenBalanceOf } = useWagmiUtils();
   const {
-    data: submitTxData,
-    error: submitTxError,
-    write: submit
-  } = useContractWrite(config);
-
-  const {
-    isLoading: submitTxLoading,
-    isSuccess: submitTxSuccess,
-    error: submitConfirmTxError
-  } = useWaitForTransaction({
-    chainId: ct.chainId,
-    confirmations: 1,
-    cacheTime: Infinity,
-    hash: submitTxData?.hash
+    refetchMappingLastSubmittal,
+    refetchCd,
+    submit,
+    submitTxData,
+    submitTxLoading,
+    submitTxSuccess,
+    error: submitTxError
+  } = useSurveyCt({
+    answersIds
   });
 
   useEffect(() => {
+    if (submitTxLoading) {
+      if (!toast.isActive("submitTxLoading")) {
+        toast.info("Submit Tx Signed, waiting confirmation...", {
+          toastId: "submitTxLoading"
+        });
+      }
+      return;
+    }
+    if (submitTxError) {
+      console.log("useEffect:submitTxError:", { submitTxError });
+
+      if (!toast.isActive("submitTxError")) {
+        toast.error("An error ocurred or canceled", {
+          toastId: "submitTxError"
+        });
+      }
+      return;
+    }
     if (submitTxSuccess && submitTxData?.hash) {
-      console.log("tx success, triggers refetchs", {
-        submitTxSuccess,
-        hash: submitTxData?.hash
-      });
       refetchTokenBalanceOf();
       refetchMappingLastSubmittal();
       refetchCd();
+
+      if (!toast.isActive("submitTxSuccess")) {
+        toast.success("Transaction Confirmed!", {
+          toastId: "submitTxSuccess"
+        });
+      }
+      return;
     }
+
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitTxSuccess]);
+  }, [submitTxSuccess, submitTxLoading, submitTxError]);
 
   return (
     <>
       <div className="d-grip gap-2">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
           disabled={!submit || submitTxLoading}
           onClick={() => submit?.()}
         >

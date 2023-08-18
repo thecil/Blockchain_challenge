@@ -51,19 +51,17 @@ const BalanceOfController = () => {
     <>
       {stage === Stages.loading && (
         <>
-          <p>loading balance...</p>
+          <div className="p-2 w-28 h-10 bg-slate-700 animate-pulse rounded-full">
+          </div>
         </>
       )}
-      {stage === Stages.hidden && (
-        <>
-          <p>hidden</p>
-        </>
-      )}
+      {stage === Stages.hidden && <></>}
       {stage === Stages.balanceOf && (
         <>
-          <div className="p-2 w-fit border border-solid border-gray-400 rounded-full bg-gray-200 dark:bg-gray-800 dark:border-gray-200">
+          <div className="p-2 w-fit border border-solid border-gray-400 rounded-full bg-gray-300 dark:bg-gray-700 dark:border-gray-200">
             <p>
-              {tokenBalanceOf?.symbol} : {tokenBalanceOf?.formatted}
+              <span className="font-bold">{tokenBalanceOf?.symbol}</span> :{" "}
+              {tokenBalanceOf?.formatted}
             </p>
           </div>
         </>

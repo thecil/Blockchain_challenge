@@ -14,3 +14,7 @@ export interface SurveyData {
   image: string;
   questions: Question[];
 }
+
+export interface SubmitSurveyProps {
+  answersIds: number[] | null;
+}

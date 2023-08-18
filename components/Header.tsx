@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import BalanceOfController from "./web3/BalanceOfController";
@@ -9,24 +11,33 @@ const Header: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
-  const handleResize = () => {
-    if (window.innerWidth <= 768) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };
-
-  window.addEventListener("resize", handleResize);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        menuButtonRef.current !== event.target
+      ) {
         setShowMenu(false);
       }
     };
 
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -41,6 +52,7 @@ const Header: React.FC = () => {
       {isMobile ? (
         <>
           <button
+            ref={menuButtonRef}
             onClick={() => setShowMenu(!showMenu)}
             className="p-2 border border-solid hover:border-gray-800 rounded-full bg-gray-200 dark:bg-gray-800 dark:border-gray-200"
           >

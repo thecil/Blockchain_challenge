@@ -1,18 +1,28 @@
+"use client";
+
 import { useMemo } from "react";
-import { useContractRead } from "wagmi";
+import {
+  useContractRead,
+  usePrepareContractWrite,
+  useContractWrite,
+  useWaitForTransaction
+} from "wagmi";
 import { useContractInfo } from "@/hooks/web3/useContractInfo";
 import { useWagmiUtils } from "@/hooks/web3/useWagmiUtils";
 import { hexToNumber } from "viem";
 import { Web3Address } from "@/types/web3";
 import { unixNow } from "@/utils/unixTime";
+import { TransError, useTransError } from "@/hooks/web3/useTransError";
+import { SubmitSurveyProps } from "@/types/survey";
 
-export const useSurveyCt = () => {
+export const useSurveyCt = ({ answersIds }: SubmitSurveyProps) => {
   const ct = useContractInfo();
   const {
     address,
     isWalletConnected,
     isConnectedToCorrectNetwork,
-    bigIntReplacer
+    bigIntReplacer,
+    accountNonce
   } = useWagmiUtils();
 
   const {
@@ -74,9 +84,45 @@ export const useSurveyCt = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cooldown, mappingLastSubmittal, isFetchingMapping]);
 
+  const surveyIdBigInt = useMemo(() => {
+    return accountNonce ? BigInt(accountNonce) : BigInt(0);
+  }, [accountNonce]);
+
+  const answersIdsBigInt = useMemo(() => {
+    return answersIds ? answersIds.map((id) => BigInt(id)) : null;
+  }, [answersIds]);
+
+  const { config } = usePrepareContractWrite({
+    ...ct,
+    functionName: "submit",
+    args: [surveyIdBigInt, answersIdsBigInt],
+    enabled: Boolean(isWalletConnected && surveyIdBigInt && answersIdsBigInt),
+    account: address
+  });
+
+  const {
+    data: submitTxData,
+    error: submitTxError,
+    write: submit
+  } = useContractWrite(config);
+
+  const {
+    isLoading: submitTxLoading,
+    isSuccess: submitTxSuccess,
+    error: submitConfirmTxError
+  } = useWaitForTransaction({
+    chainId: ct.chainId,
+    confirmations: 2,
+    cacheTime: Infinity,
+    hash: submitTxData?.hash
+  });
+
+  const errResult = useTransError({
+    txErrors: [submitTxError, submitConfirmTxError] as TransError[]
+  });
+
   return {
-    address,
-    isWalletConnected,
+    accountNonce,
     cooldown,
     refetchCd,
     isLoadingCd,
@@ -84,6 +130,11 @@ export const useSurveyCt = () => {
     refetchMappingLastSubmittal,
     isFetchingMapping,
     isLoadingMappingLastSubmittal,
-    isOnCooldown
+    isOnCooldown,
+    submit,
+    submitTxData,
+    submitTxLoading,
+    submitTxSuccess,
+    ...errResult
   };
 };

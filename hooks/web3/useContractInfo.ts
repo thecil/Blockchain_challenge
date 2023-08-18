@@ -1,18 +1,13 @@
 import { useMemo } from "react";
 import { useNetwork } from "wagmi";
 import { abi_survey } from "@/data/web3/contracts/abi_survey";
+import { ContractInterface } from "@/types/web3";
 
 import {
   ContractAddresConfig,
   getSupportedChainConfig
 } from "@/utils/supportedChains";
 import { Web3Address } from "@/types/web3";
-
-export interface ContractInterface {
-    address: Web3Address;
-    abi: any;
-    chainId: number;
-}
 
 function toContractInterface(config: ContractAddresConfig): ContractInterface {
   return {

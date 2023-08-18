@@ -5,14 +5,17 @@ import {
   deserialize,
   useNetwork
 } from "wagmi";
-import { useMemo } from "react";
+import { getPublicClient } from "@wagmi/core";
+import { useMemo, useState, useEffect } from "react";
 import { Web3Address } from "@/types/web3";
 import { useContractInfo } from "./useContractInfo";
 
 export const useWagmiUtils = () => {
+  const [accountNonce, setAccountNonce] = useState<number | null>(null);
   const _ct = useContractInfo();
   const { address, isConnected } = useAccount();
   const { chain } = useNetwork();
+  const publicClient = getPublicClient();
 
   const isWalletConnected = useMemo(() => {
     return Boolean(address && isConnected);
@@ -20,7 +23,7 @@ export const useWagmiUtils = () => {
 
   const isConnectedToCorrectNetwork = useMemo(() => {
     return chain?.id ? chain.id === _ct.chainId : false;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chain]);
 
   const bigIntReplacer = (key: any, value: any) =>
@@ -45,10 +48,22 @@ export const useWagmiUtils = () => {
     return _tokenBalanceOf ? _tokenBalanceOf : null;
   }, [_tokenBalanceOf]);
 
+  useEffect(() => {
+    if (address && publicClient) {
+      const fetchNonce = async () => {
+        const nonce = await publicClient.getTransactionCount({ address });
+        setAccountNonce(nonce);
+      };
+      fetchNonce();
+    }
+  }, [address, publicClient]);
+
   return {
     serialize,
     deserialized,
     bigIntReplacer,
+    publicClient,
+    accountNonce,
     address,
     isWalletConnected,
     isConnectedToCorrectNetwork,

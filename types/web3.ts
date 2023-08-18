@@ -25,3 +25,9 @@ export interface WagmiTransError extends Error {
     };
   };
 }
+
+export interface ContractInterface {
+  address: Web3Address;
+  abi: any;
+  chainId: number;
+}
