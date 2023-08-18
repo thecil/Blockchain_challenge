@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "react-toastify/dist/ReactToastify.css";
