@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Metadata } from "next";
 import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,11 +9,6 @@ import { Providers } from "./providers";
 import { ToastContainer } from "react-toastify";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
-export const metadata: Metadata = {
-  title: "Blockchain Challenge",
-  description: "Blockchain Challenge for Rather Labs"
-};
 
 export default function RootLayout({
   children
