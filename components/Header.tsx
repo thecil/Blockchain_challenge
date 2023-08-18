@@ -76,21 +76,6 @@ const Header: React.FC = () => {
         </>
       ) : (
         <>
-          <nav>
-            <ul className="flex space-x-4">
-              <li>
-                <Link className="hover:text-gray-300" href="/about">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link className="hover:text-gray-300" href="/contact">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
-
           <div className="flex space-x-2">
             <BalanceOfController />
             <ConnectButton />
