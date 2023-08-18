@@ -53,7 +53,7 @@ const SubmitSurvey = ({ answersIds }: SubmitSurveyProps) => {
       refetchCd();
 
       if (!toast.isActive("submitTxSuccess")) {
-        toast.success("Transaction Confirmed!", {
+        toast.success("Transaction Confirmed! You have earned 1 QUIZ token", {
           toastId: "submitTxSuccess"
         });
       }
