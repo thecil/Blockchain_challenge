@@ -1,5 +1,10 @@
 <h2 align="center"><u>Blockchain Challengue - Rather Labs</u></h2>
 
+![Vercel](http://therealsujitk-vercel-badge.vercel.app/?app=therealsujitk-vercel-badge)
+
+Website: [blockchain-challenge.vercel.app](https://blockchain-challenge.vercel.app/)
+
+
 <h4 align="center"> Tech Challenge For Full Stack Developer </h4>
 
 <p align="center">
@@ -62,3 +67,5 @@ In the project directory, you can run:
  Please keep in consideration:
 
 - :warning: My main skills are not Front-End UI, I'm focused on UX components and that each component works as expected. (Although I know how to do fundamental CSS).
+
+- This application is restricted to work on `Goerli` and `Hardhat` Networks. (But it's capable to handle multiple networks if needed).
