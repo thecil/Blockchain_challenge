@@ -114,7 +114,7 @@ export const useSurveyCt = () => {
     error: submitConfirmTxError
   } = useWaitForTransaction({
     chainId: ct.chainId,
-    confirmations: 2,
+    confirmations: 1,
     cacheTime: Infinity,
     hash: submitTxData?.hash
   });
