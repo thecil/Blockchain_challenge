@@ -1,34 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h2 align="center"><u>Blockchain Challengue - Rather Labs</u></h2>
 
-## Getting Started
+<h4 align="center"> Tech Challenge For Full Stack Developer </h4>
 
-First, run the development server:
+<p align="center">
+<br>
+    <img src="https://img.shields.io/badge/Author-thecil-magenta?style=flat-square">
+    <img src="https://img.shields.io/badge/Open%20Source-No-orange?style=flat-square">
+    <img src="https://img.shields.io/badge/Maintained-Yes-cyan?style=flat-square">
+    <img src="https://img.shields.io/badge/Made%20In-Venezuela-green?style=flat-square">
+    <img src="https://img.shields.io/badge/Written%20In-NextJs-blue?style=flat-square">
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### [+] Description
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A survey company wants to make a new quiz form that rewards users with tokens for participating in the survey. They create surveys, loading them into JSON format and they want you to develop a responsive web application using React and TypeScript for people to answer and submit the results, getting tokens in the process.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### [+] Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To get started, clone this repository and install the dependencies by running npm install.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+ - `git clone https://github.com/thecil/blockchain_challenge.git`
+ - `cd blockchain_challenge`
+ - `npm install`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### [+] Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+In the project directory, you can run:
 
-## Deploy on Vercel
+- Runs the app in development mode. Open http://localhost:3000 to view it in the browser.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    `npm run dev`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Builds the app for production to the .next folder.
+
+    `npm run build`
+
+- Starts the application in production mode. The application should be compiled with npm run build first.
+
+    `npm run start`
+
+- Runs ESLint to check for linting errors.
+
+    `npm run lint`
+
+### [+] Requirements
+ - **React** - A JavaScript library for building user interfaces.
+ - **TypeScript** - A typed superset of JavaScript that compiles to plain JavaScript.
+ - **Next.js** - A React framework for production.
+ - **Tailwind CSS** - A utility-first CSS framework.
+ - **Wagmi** - A collection of React Hooks containing everything you need to start working with Ethereum.
+
+### [+] Credits 
+<a href="https://github.com/thecil/Blockchain_challenge">thecil</a>
+
+### [+] Find me on 
+<a href="mailto:tcconsulta@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-tcconsulta@gmail.com-blue?style=for-the-badge&logo=gmail"></a>
+
+### Notes
+ 
+ Please keep in consideration:
+
+- :warning: My main skills are not Front-End UI, I'm focused on UX components and that each component works as expected. (Although I know how to do fundamental CSS).
