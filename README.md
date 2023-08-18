@@ -50,6 +50,8 @@ In the project directory, you can run:
     `npm run lint`
 
 ### [+] Requirements
+
+ - Check `.env.example` for enviromental variables.
  - **React** - A JavaScript library for building user interfaces.
  - **TypeScript** - A typed superset of JavaScript that compiles to plain JavaScript.
  - **Next.js** - A React framework for production.
