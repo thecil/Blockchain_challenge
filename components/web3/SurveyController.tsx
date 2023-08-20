@@ -78,7 +78,8 @@ const SurveyController = () => {
           <>
             <h1 className="font-bold text-2xl">
               {!isWalletConnected && "Please connect your wallet to start"}
-              {!isConnectedToCorrectNetwork &&
+              {isWalletConnected &&
+                !isConnectedToCorrectNetwork &&
                 "Incorrect network, please switch to Goerli or Hardhat"}
             </h1>
           </>

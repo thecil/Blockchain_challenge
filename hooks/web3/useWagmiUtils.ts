@@ -51,14 +51,16 @@ export const useWagmiUtils = () => {
   }, [_tokenBalanceOf]);
 
   useEffect(() => {
-    if (address && publicClient) {
-      const fetchNonce = async () => {
-        const nonce = await publicClient.getTransactionCount({ address });
-        setAccountNonce(nonce);
-      };
-      fetchNonce();
+    if (isWalletConnected && isConnectedToCorrectNetwork) {
+      if (address && publicClient) {
+        const fetchNonce = async () => {
+          const nonce = await publicClient.getTransactionCount({ address });
+          setAccountNonce(nonce);
+        };
+        fetchNonce();
+      }
     }
-  }, [address, publicClient]);
+  }, [address, publicClient, isConnectedToCorrectNetwork, isWalletConnected]);
 
   return {
     serialize,
